@@ -6,32 +6,6 @@ Created on Thu Feb 25 17:47:44 2016
 import numpy as np
 from sklearn import preprocessing
 
-#%% Compute distance to the origin
-def norm_of_each_row(x):
-    # Euclidean norm of each row in a 2D array
-    return np.array([np.linalg.norm(xi) for xi in x])
-
-#%% Generate uniformly in terms of radius
-def uniform_radius(d, n, r):
-    U = np.random.uniform(0,r, (n,))
-    X = np.random.normal(0, 1, (n, d))
-    p = X / norm_of_each_row(X).reshape((-1, 1))
-    p1 =U.reshape((-1, 1))*p
-    return p1
-
-#%% Save data to arff file for SVM
-def Save_To_Arff(XT, X0, X1):
-    Norm  = np.full((len(XT)),0,dtype = np.int)
-    Norm1 = np.full((len(X0)),0,dtype = np.int)
-    Anom  = np.full((len(X1)),0,dtype = np.int)
-
-    XT_L = np.column_stack([XT,Norm])
-    np.savetxt("train.arff", XT_L, delimiter=",",fmt='%f')
-    X0_L = np.column_stack([X0,Norm1])
-    np.savetxt("testX0.arff", X0_L, delimiter=",",fmt='%f')
-    X1_L = np.column_stack([X1,Anom])
-    np.savetxt("testX1.arff", X1_L, delimiter=",",fmt='%f')
-
 #%% Normalize training and testing sets
 def normalize_data(train_X, test_X, scale = "standard"):
     if ((scale == "standard") | (scale == "maxabs") | (scale == "minmax")):
