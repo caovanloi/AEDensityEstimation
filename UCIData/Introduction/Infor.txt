@@ -1,0 +1,12 @@
+1. WOBC: 9 attributes + 1 class attribute [2 - benign(458), 4 - malignant(241)]
+
+2. WDBC: 30 attributes + 1 class attribute (2 - benign, 4 - malignant)
+
+3. C-heart: 13 attributes + 1 class attribute (0,1,2,3,4)
+
+4. Liver disorder: 5 attributes + 1 class attribute (drinks > 5)
+
+
+5. German: 24 + 1 class (class 1, class 2)
+
+6. Australia: 14 + class attribute (0 - 383, 1 - 307)  (?)
