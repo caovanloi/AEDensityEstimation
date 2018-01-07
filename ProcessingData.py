@@ -38,12 +38,12 @@ def process_KDD(group_attack):
         dX1 = np.genfromtxt("NSL-KDD/KDDTest_Probe.csv", delimiter=",")
 
     num_train = 350
-    #Train(67343);                    2000
-    #KDDTest_Normal(9711);            2000
-    #KDDTest_Dos   7458 (5700);       2000
-    #KDDTest_R2L   2887(2199);        2000
-    #KDDTest_U2R   67 (37)            37
-    #KDDTest_Probe 2421 (1106);       1000
+    #Train(67343);                    
+    #KDDTest_Normal 9711            
+    #KDDTest_Dos   7458       
+    #KDDTest_R2L   2887        
+    #KDDTest_U2R   67           
+    #KDDTest_Probe 2421      
 
     d = d[~np.isnan(d).any(axis=1)]
     np.random.seed(0)
