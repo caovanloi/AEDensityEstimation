@@ -11,7 +11,7 @@ from BaseOneClass import CentroidBasedOneClassClassifier, DensityBasedOneClassCl
 from Plot_curve import Plotting_AUC, Plotting_AUC_HZ, Plotting_hidden_data
 
 #%%
-def Call_Autoencoder(data, train_X, test_X, actual,
+def Compute_AUC_RE(data, train_X, test_X, actual,
 					 h_size, epoch, k_log, l_rate, bw, exp):
 
     #******************* Call autoencoder **********************
@@ -56,8 +56,8 @@ def Call_Autoencoder(data, train_X, test_X, actual,
 
     if (exp == "ME"):         #main experiment
         Plotting_AUC(FPR_ae,  TPR_ae,  auc_ae,
-				 FPR_cen, TPR_cen, auc_cen,
-				 FPR_kde, TPR_kde, auc_kde, data)
+		     FPR_cen, TPR_cen, auc_cen,
+		     FPR_kde, TPR_kde, auc_kde, data)
     elif (exp == "HD"):      #investigate hidden size
         #Save hidden data to csv file"
         np.savetxt("Results/Hidden_data/" + data + "_train_" + str(k_log) + ".csv", train_hidden[0], delimiter=",",fmt='%f')
@@ -82,7 +82,7 @@ def Investigate_hidden_size(data):
         bw = (h_size[i]/2.0)**0.5
         print ("Hidden_siz: ", h_size[i], " bw: ", bw)
 
-        ae, cen, kde, re = Call_Autoencoder(data, train_X, test_X, actual,
+        ae, cen, kde, re = Compute_AUC_RE(data, train_X, test_X, actual,
 									    h_size[i], epoch, k, lr, bw, "HZ")
         temp = np.column_stack([h_size[i], epoch, ae, cen, kde, re])
         AUC_RE = np.append(AUC_RE, temp)
@@ -108,7 +108,7 @@ def Visualize_hidden_data(data):
 	print("Hidden_siz: ", h_size, " bw: ", bw)
 
 	for i in range(0, len(k)):
-		train_hidden, test_hidden = Call_Autoencoder(data, train_X, test_X, actual,
+		train_hidden, test_hidden = Compute_AUC_RE(data, train_X, test_X, actual,
 									    h_size, epoch, k[i], lr, bw, "HD")
 		_, test_h = normalize_data(train_hidden, test_hidden)
 		test_h_X0 = test_h[actual==1]
@@ -125,7 +125,7 @@ def Main_Experiment(data):
 	k       = 1.0
 	lr      = 0.01
 	bw = (h_size/2.0)**0.5   #Default in One-class SVM
-	ae, cen, kde, re = Call_Autoencoder(data, train_X, test_X, actual,
+	ae, cen, kde, re = Compute_AUC_RE(data, train_X, test_X, actual,
 									    h_size, epoch, k, lr, bw, "ME")
 
 	print("********************************************************")
